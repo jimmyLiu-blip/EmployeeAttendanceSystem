@@ -45,5 +45,23 @@
     <Compile Include="EmployeeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EmployeeAttendanceSystem.Domain\EmployeeAttendanceSystem.Domain.csproj">
+      <Project>{27ca5c70-3cc0-4440-95e4-331e6c90b656}</Project>
+      <Name>EmployeeAttendanceSystem.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EmployeeAttendanceSystem.Infrastructure\EmployeeAttendanceSystem.Infrastructure.csproj">
+      <Project>{7752504b-a383-48cc-bafe-6e852f222a8a}</Project>
+      <Name>EmployeeAttendanceSystem.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EmployeeAttendanceSystem.Repository\EmployeeAttendanceSystem.Repository.csproj">
+      <Project>{de9b4f9d-e96e-4947-9c11-1831a39d9008}</Project>
+      <Name>EmployeeAttendanceSystem.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EmployeeAttendanceSystem\EmployeeAttendanceSystem.csproj">
+      <Project>{07a3b929-9b06-4b92-af9b-e6f5c271a3b6}</Project>
+      <Name>EmployeeAttendanceSystem</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
