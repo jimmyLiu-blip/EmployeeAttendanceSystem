@@ -25,7 +25,7 @@ namespace EmployeeAttendanceSystem.Service
         { 
             return _employeeRepository.GetAllEmployeeNames();
         }
-        public Employee GetAllEmployees()
+        public IEnumerable <Employee> GetAllEmployees()
         {
             return _employeeRepository.GetAllEmployees();
         }

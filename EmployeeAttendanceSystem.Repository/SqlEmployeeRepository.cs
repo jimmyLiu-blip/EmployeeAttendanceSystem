@@ -11,7 +11,7 @@ using System.CodeDom;
 
 namespace EmployeeAttendanceSystem.Repository
 {
-    public class SqlEmployeeRepository:IEmployeeRepository
+    public class SqlEmployeeRepository : IEmployeeRepository
     {
         private Employee MapToEmployee(SqlDataReader reader)
         {
@@ -30,7 +30,7 @@ namespace EmployeeAttendanceSystem.Repository
             {
                 var sql = @"INSERT INTO Employee (Name, Department, JobTitle) 
                             OUTPUT INSERTED.EmployeeId
-                            VALUES (@Name, @Department,@Title)";
+                            VALUES (@Name, @Department,@JobTitle)";
                 using (var cmd = new SqlCommand(sql, cn))
                 {
                     cmd.Parameters.Add("@Name", System.Data.SqlDbType.NVarChar, 50).Value = employee.Name;
@@ -41,7 +41,7 @@ namespace EmployeeAttendanceSystem.Repository
                     var newId = cmd.ExecuteScalar();
 
                     if (newId != null && newId != DBNull.Value)
-                    { 
+                    {
                         employee.EmployeeId = (int)newId;
                     }
                 }
@@ -55,9 +55,9 @@ namespace EmployeeAttendanceSystem.Repository
             {
                 var sql = @"SELECT EmployeeId, Name, Department, JobTitle From Employee";
                 using (var cmd = new SqlCommand(sql, cn))
-                { 
+                {
                     cn.Open();
-                    using(var reader = cmd.ExecuteReader())
+                    using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
@@ -88,6 +88,58 @@ namespace EmployeeAttendanceSystem.Repository
             }
             return names;
         }
-
+        public Employee GetEmployeeByEmployeeId(int employeeId)
+        {
+            using (var cn = new SqlConnection(DatabasebConfig.ConnectionString))
+            {
+                var sql = @"SELECT EmployeeId, Name, Department, JobTitle From Employee WHERE EmployeeId = @EmployeeId";
+                using (var cmd = new SqlCommand(sql, cn))
+                {
+                    cmd.Parameters.Add("@EmployeeId", System.Data.SqlDbType.Int).Value = employeeId;
+                    cn.Open();
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return MapToEmployee(reader);
+                        }
+                        return null;
+                    }
+                }
+            }
+        }
+        public void UpdateEmployee(Employee employee)
+        {
+            using (var cn = new SqlConnection(DatabasebConfig.ConnectionString))
+            { 
+                var sql = @"UPDATE Employee SET
+                            Name = @Name,
+                            Department = @Department,
+                            JobTitle = @JobTitle
+                            WHERE EmployeeId = @EmployeeId";
+                using (var cmd = new SqlCommand(sql, cn))
+                {
+                    cmd.Parameters.Add("@Name", System.Data.SqlDbType.NVarChar, 50).Value = employee.Name;
+                    cmd.Parameters.Add("@Department", System.Data.SqlDbType.NVarChar, 50).Value = (object)employee.Department ?? DBNull.Value;
+                    cmd.Parameters.Add("@JobTitle", System.Data.SqlDbType.NVarChar, 50).Value = (object)employee.JobTitle ?? DBNull.Value;
+                    cmd.Parameters.Add("@EmployeeId", System.Data.SqlDbType.Int).Value = employee.EmployeeId;
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public void DeleteEmployee(int employeeId)
+        {
+            using (var cn = new SqlConnection(DatabasebConfig.ConnectionString))
+            {
+                var sql = @"DELETE FROM Employee WHERE EmployeeId = @EmployeeId";
+                using (var cmd = new SqlCommand(sql, cn))
+                {
+                    cmd.Parameters.Add("@EmployeeId", System.Data.SqlDbType.Int).Value = employeeId;
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

@@ -12,6 +12,9 @@ namespace EmployeeAttendanceSystem.Repository
         void AddEmployee(Employee employee);
         IEnumerable<Employee> GetAllEmployees();
         Dictionary<int, string> GetAllEmployeeNames();
-
+        Employee GetEmployeeByEmployeeId(int employeeId);
+        void UpdateEmployee(Employee employee);
+        void DeleteEmployee(int employeeId);
+        
     }
 }
