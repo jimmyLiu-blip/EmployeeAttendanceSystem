@@ -17,6 +17,6 @@ namespace EmployeeAttendanceSystem.Domain
         public decimal? WorkHours { get; set; }
         public bool IsLate { get; set; }
         public bool IsEarlyLeave { get; set; }
-
+        public AttendanceRecord() { }
     }
 }

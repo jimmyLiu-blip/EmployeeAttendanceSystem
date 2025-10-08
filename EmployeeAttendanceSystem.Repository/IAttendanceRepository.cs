@@ -10,9 +10,10 @@ namespace EmployeeAttendanceSystem.Repository
     public interface IAttendanceRepository
     {
         void AddAttendanceRecord(AttendanceRecord record);
-        void UpdateAttendanceRecord(AttendanceRecord record);
         AttendanceRecord GetRecordByEmployeeIdAndDate(int employeeId, DateTime date);
         IEnumerable<AttendanceRecord> GetAllEmployeesTodayRecords();
         IEnumerable<AttendanceRecord> GetRecordsByEmployeeId(int employeeId);
+        void UpdateAttendanceRecord(AttendanceRecord record);
+        void DeleteAttendanceRecord(int recordId);
     }
 }

@@ -26,7 +26,7 @@ namespace EmployeeAttendanceSystem.Repository
         public SqlEmployeeRepository() { }
         public void AddEmployee(Employee employee)
         {
-            using (var cn = new SqlConnection(DatabasebConfig.ConnectionString))
+            using (var cn = new SqlConnection(DatabaseConfig.ConnectionString))
             {
                 var sql = @"INSERT INTO Employee (Name, Department, JobTitle) 
                             OUTPUT INSERTED.EmployeeId
@@ -51,7 +51,7 @@ namespace EmployeeAttendanceSystem.Repository
         {
             var employees = new List<Employee>();
 
-            using (var cn = new SqlConnection(DatabasebConfig.ConnectionString))
+            using (var cn = new SqlConnection(DatabaseConfig.ConnectionString))
             {
                 var sql = @"SELECT EmployeeId, Name, Department, JobTitle From Employee";
                 using (var cmd = new SqlCommand(sql, cn))
@@ -71,7 +71,7 @@ namespace EmployeeAttendanceSystem.Repository
         public Dictionary<int, string> GetAllEmployeeNames()
         {
             var names = new Dictionary<int, string>();
-            using (var cn = new SqlConnection(DatabasebConfig.ConnectionString))
+            using (var cn = new SqlConnection(DatabaseConfig.ConnectionString))
             {
                 var sql = @"SELECT EmployeeId, Name From Employee";
                 using (var cmd = new SqlCommand(sql, cn))
@@ -90,7 +90,7 @@ namespace EmployeeAttendanceSystem.Repository
         }
         public Employee GetEmployeeByEmployeeId(int employeeId)
         {
-            using (var cn = new SqlConnection(DatabasebConfig.ConnectionString))
+            using (var cn = new SqlConnection(DatabaseConfig.ConnectionString))
             {
                 var sql = @"SELECT EmployeeId, Name, Department, JobTitle From Employee WHERE EmployeeId = @EmployeeId";
                 using (var cmd = new SqlCommand(sql, cn))
@@ -110,7 +110,7 @@ namespace EmployeeAttendanceSystem.Repository
         }
         public void UpdateEmployee(Employee employee)
         {
-            using (var cn = new SqlConnection(DatabasebConfig.ConnectionString))
+            using (var cn = new SqlConnection(DatabaseConfig.ConnectionString))
             { 
                 var sql = @"UPDATE Employee SET
                             Name = @Name,
@@ -130,7 +130,7 @@ namespace EmployeeAttendanceSystem.Repository
         }
         public void DeleteEmployee(int employeeId)
         {
-            using (var cn = new SqlConnection(DatabasebConfig.ConnectionString))
+            using (var cn = new SqlConnection(DatabaseConfig.ConnectionString))
             {
                 var sql = @"DELETE FROM Employee WHERE EmployeeId = @EmployeeId";
                 using (var cmd = new SqlCommand(sql, cn))

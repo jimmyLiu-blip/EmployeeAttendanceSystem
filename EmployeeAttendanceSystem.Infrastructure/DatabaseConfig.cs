@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeAttendanceSystem.Infrastructure
 {
-    public static class DatabasebConfig
+    public static class DatabaseConfig
     {
         private const string DbName = "EmployeeAttendanceDB";
 
