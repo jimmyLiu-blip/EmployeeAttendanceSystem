@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Configuration;
 
 namespace EmployeeAttendanceSystem.Infrastructure
 {
     public static class DatabaseConfig
     {
-        private const string DbName = "EmployeeAttendanceDB";
-
-        public static readonly string ConnectionString = $@"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog={DbName};Integrated Security=True;Timeout=30;";
+        public static readonly string ConnectionString =
+            ConfigurationManager.ConnectionStrings["EmployeeAttendanceDB"]?.ConnectionString
+            ?? throw new InvalidOperationException("找不到名為 'EmployeeAttendanceDB' 的連線字串設定");
         public static void TestConnection()
         {
             try
@@ -26,6 +22,16 @@ namespace EmployeeAttendanceSystem.Infrastructure
             {
                 throw new ApplicationException($"資料庫連線失敗，請檢查 LocalDB 實例和資料庫名稱。錯誤訊息: {ex.Message}", ex);
             }
+            catch (InvalidOperationException ex)
+            {
+                throw new ApplicationException($"設定檔錯誤: {ex.Message}", ex);
+            }
+        }
+
+        public static string GetDatabaseName()
+        {
+            var builder = new SqlConnectionStringBuilder(ConnectionString);
+            return builder.InitialCatalog;
         }
     }
 }
