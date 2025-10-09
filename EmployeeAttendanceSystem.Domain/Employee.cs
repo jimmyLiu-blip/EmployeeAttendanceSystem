@@ -14,13 +14,5 @@ namespace EmployeeAttendanceSystem.Domain
         public string Department { get; set; }
         public string JobTitle { get; set; }
         public Employee() { }
-
-        /*public static Employee CreatNew(string name, string department, string jobTitle)
-        { 
-            if(string.IsNullOrWhiteSpace(name)) 
-                throw new ArgumentNullException("員工姓名不得為空",nameof(name));
-            return new Employee { Name = name, Department = department, JobTitle = jobTitle }
-        }*/
-
     }
 }
